@@ -1,0 +1,114 @@
+<div class="d-flex flex-column justify-content-center">
+  <div class="h3 text-center my-3 text-primary">
+    Here you can see all your favourite posts:
+  </div>
+  <div class="d-flex flex-row justify-content-around">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a period of time</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            (dateChange)="updateStartDate($event)"
+          />
+          <input
+            matEndDate
+            placeholder="End date"
+            (dateChange)="updateEndDate($event)"
+          />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a brand</mat-label>
+        <mat-select>
+          <mat-option
+            *ngFor="let brand of brands"
+            [value]="brand.brandname"
+            (click)="updateSelectedBrand(brand)"
+          >
+            {{ brand.brandname }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<!-- Initial am dat display la toate brandurile si am avut un efect de hover si de select pentru fiecare brand: -->
+
+<!-- <div class="mt-5">
+  <p>Choose a brand of your liking:</p>
+  <div style="height: 30px" class="row" *ngIf="brands">
+    <div
+      class="col-md-3 text-center item-brand"
+      *ngFor="let brand of brands; let i = index"
+      (mouseover)="hovered = i + 1"
+      (mouseout)="hovered = -1"
+      (click)="updateSelectedBrand(brand)"
+      [ngStyle]="{
+        'background-color':
+          selectedBrand && brand.brandname === selectedBrand.brandname
+            ? '#0d6efd'
+            : hovered && hovered === i + 1
+            ? '#8fbc8f'
+            : '#d3d3d3'
+      }"
+    >
+      {{ brand.brandname }}
+    </div>
+  </div>
+</div> -->
+
+<p class="h4 my-4 text-secondary">
+  These are the posts that you are looking for:
+</p>
+
+<div>
+  <table class="table" *ngIf="postsResponsePayload">
+    <thead>
+      <tr>
+        <th>
+          <button class="btn btn-primary" (click)="toggleImage()">
+            {{ showImage ? "Hide" : "Show" }} Image
+          </button>
+        </th>
+        <th>Platform</th>
+        <th>Page Name</th>
+        <th>Caption</th>
+        <th>Engagement</th>
+      </tr>
+    </thead>
+    <tbody class="text-secondary">
+      <tr *ngFor="let item of postsResponsePayload.posts">
+        <td>
+          <img
+            *ngIf="showImage"
+            [src]="item.post!.picture"
+            [style.width.px]="imageWidth"
+            [style.margin.px]="imageMargin"
+          />
+        </td>
+        <td>{{ item.profile_type }}</td>
+        <td>
+          {{ item.post!.permalink }}
+        </td>
+        <td>
+          {{ item.post!.caption }}
+        </td>
+        <td>
+          {{ item.post!.engagement }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

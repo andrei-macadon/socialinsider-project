@@ -1,0 +1,28 @@
+<div>
+  <table class="table" *ngIf="brands">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Brand's profiles and their details</th>
+      </tr>
+    </thead>
+    <tbody class="text-secondary">
+      <tr *ngFor="let brand of brands">
+        <td>{{ brand.brandname }}</td>
+        <td>
+          <div *ngFor="let profile of brand.profiles; let i = index">
+            <div class="d-flex flex-row justify-content-between">
+              <div>Profile {{ i + 1 }}:</div>
+              <div>
+                <p>Profile's name: {{ profile.name }}</p>
+                <p>Profile was added at: {{ profile.profile_added }}</p>
+                <p>Profile's id is: {{ profile.id }}</p>
+                <p>Profile's type is: {{ profile.profile_type }}</p>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

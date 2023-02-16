@@ -1,0 +1,10 @@
+.item-brand:hover {
+  background-color: #7b68ee;
+  transition-delay: 0.1s;
+}
+
+img {
+  -webkit-filter: grayscale(1); /* Webkit */
+  filter: gray; /* IE6-9 */
+  filter: grayscale(1); /* W3C */
+}
